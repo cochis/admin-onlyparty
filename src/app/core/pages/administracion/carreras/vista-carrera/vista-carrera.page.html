@@ -1,0 +1,135 @@
+<app-header titulo="Carreras"></app-header>
+
+<ion-content class="ion-padding">
+  <div class="mat-elevation-z8 displayBlock" tabindex="0">
+    <table mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 12px;">#</th>
+        <td mat-cell *matCellDef="let row" [style]="'font-size: 10px;background-color:'+row.color+';color:black'">
+          {{row.id}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="programa">
+        <th mat-header-cell *matHeaderCellDef style="font-size: 12px;">Programa académico</th>
+        <td mat-cell *matCellDef="let row" style="font-size: 10px;"> {{ row.programa }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="nivel">
+        <th mat-header-cell *matHeaderCellDef style="font-size: 12px;">Nivel</th>
+        <td mat-cell *matCellDef="let row; let i = index" style="font-size: 10px;">{{ getNivel(i+1)}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="estatus">
+        <th mat-header-cell *matHeaderCellDef style="font-size: 12px;">Estatus</th>
+        <td mat-cell *matCellDef="let row; let i = index" style="font-size: 10px;">
+          {{ getNivel(i+1) }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="opciones" stickyEnd>
+        <th mat-header-cell *matHeaderCellDef style="font-size: 12px;">Opciones</th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-icon-button aria-label="Settings" [matMenuTriggerFor]="menuActions">
+            <mat-icon color="primary">settings</mat-icon>
+          </button>
+          <mat-menu #menuActions="matMenu">
+
+            <button mat-menu-item>
+              <mat-icon color="primary">edit</mat-icon>
+              <span style="color: #3f51b5;">
+                Editar
+              </span>
+            </button>
+
+            <button mat-menu-item>
+              <mat-icon color="accent">visibility</mat-icon>
+              <span style="color: #ff4081;">
+                Detalle
+              </span>
+            </button>
+
+            <button mat-menu-item color="warn">
+              <mat-icon color="warn">delete</mat-icon>
+              <span style="color:#f44336">Eliminar</span>
+            </button>
+          </mat-menu>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <!-- <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="clickedRows(row)"></tr> -->
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr class="mat-row" *matNoDataRow>
+        <!-- <td class="mat-cell" colspan="4">No se encontraron previsams con "{{formControlInput.value}}"</td> -->
+        <td class="mat-cell" colspan="4">No se encontraron datos"</td>
+      </tr>
+    </table>
+
+  </div>
+  <mat-paginator [pageSizeOptions]="[100,200,500]" aria-label="Select page of data"></mat-paginator>
+
+  <!-- <ion-grid fixed>
+    <ion-row>
+
+      <ion-col size="1">
+        <ion-list>
+          <ion-list-header>
+            <ion-label>#</ion-label>
+          </ion-list-header>
+          <ion-item *ngFor="let item of [1,1,1,1,1,1,1,1,1,1,1], let i=index">
+            <ion-label>{{i+1}}</ion-label>
+          </ion-item>
+
+        </ion-list>
+      </ion-col>
+      <ion-col size="5">
+        <ion-list>
+          <ion-list-header>
+            <ion-label>Programa académico</ion-label>
+          </ion-list-header>
+          <ion-item *ngFor="let item of [1,1,1,1,1,1,1,1,1,1,1], let i=index">
+            <ion-label>Especialidad</ion-label>
+          </ion-item>
+
+        </ion-list>
+      </ion-col>
+      <ion-col size="2">
+        <ion-list>
+          <ion-list-header>
+            <ion-label>Nivel</ion-label>
+          </ion-list-header>
+          <ion-item *ngFor="let item of [1,1,1,1,1,1,1,1,1,1,1], let i=index">
+            <ion-label>{{getNivel(i+1)}}</ion-label>
+          </ion-item>
+
+        </ion-list>
+      </ion-col>
+      <ion-col size="2">
+        <ion-list>
+          <ion-list-header>
+            <ion-label>Estatus</ion-label>
+          </ion-list-header>
+          <ion-item *ngFor="let item of [1,1,1,1,1,1,1,1,1,1,1], let i=index" class="ion-text-center">
+            <ion-icon name="{{getActivo(i+1)}}" class="ion-text-center"></ion-icon>
+          </ion-item>
+
+        </ion-list>
+      </ion-col>
+      <ion-col size="2">
+        <ion-list>
+          <ion-list-header>
+            <ion-label>Opcciones</ion-label>
+          </ion-list-header>
+          <ion-item *ngFor="let item of [1,1,1,1,1,1,1,1,1,1,1], let i=index">
+            <ion-icon name="pencil" class="ion-text-center"></ion-icon>
+            <ion-icon name="checkmark-circle" class="ion-text-center"></ion-icon>
+            <ion-icon name="close-circle" class="ion-text-center"></ion-icon>
+
+          </ion-item>
+
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
+</ion-content>

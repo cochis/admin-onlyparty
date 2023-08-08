@@ -1,0 +1,6 @@
+<ion-list>
+  <ion-item *ngFor="let item of menuUser; let i = index" (click)="onClick( item.url)">
+    <ion-icon name="{{item.icon}}"></ion-icon>
+    <ion-label>{{item.titulo}}</ion-label>
+  </ion-item>
+</ion-list>

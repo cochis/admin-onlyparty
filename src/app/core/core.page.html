@@ -1,0 +1,56 @@
+<ion-app>
+  <ion-split-pane contentId="main-content">
+    <ion-menu contentId="main-content" type="overlay">
+      <ion-content color="primary">
+        <div class="ion-text-center ion-padding" (click)="navigate('/core')">
+          <ion-img src="/assets/logo/logo.png" alt="Centro Universitario de Estudios Jurídicos"
+            style="width:150px; margin:auto" class="ion-padding-bottom ">
+          </ion-img>
+          <ion-label>Version {{version}}</ion-label>
+        </div>
+        <!-- [routerLink]="[p.url]" -->
+        <!-- <ion-list id="inbox-list" *ngFor="let p of apartados; let i = index">
+        </ion-list> -->
+        <ion-accordion-group *ngFor="let p of apartados; let i = index">
+          <ion-accordion value="first">
+            <ion-item slot="header" color="light">
+              <ion-label>{{p.titulo}}</ion-label>
+            </ion-item>
+      
+            <div class="ion-padding" slot="content" *ngFor="let mod of p.modulos; let i = index">
+             
+              <ion-accordion-group>
+                <ion-accordion value="{{mod.titulo}}">
+                  <ion-item slot="header" color="light">
+                    <ion-label>{{mod.titulo}}</ion-label>
+                  </ion-item>
+                  <ion-menu-toggle auto-hide="false" class="ion-padding" slot="content"
+                    *ngFor="let menu of mod.menus; let i = index">
+                    {{menu.url}}
+                    <ion-item routerDirection="root" [routerLink]="[menu.url]" lines="none" detail="false"
+                      routerLinkActive="selected">
+                      <!-- <ion-icon [name]="menu.icon" size="large" color="primary"></ion-icon> -->
+                      <ion-icon aria-hidden="true" slot="start" [ios]="menu.icon + '-outline'"
+                        [md]="menu.icon + '-sharp'" color="primary"></ion-icon>
+                      <ion-label color="tertiary">{{ menu.titulo }}</ion-label>
+                    </ion-item>
+                  </ion-menu-toggle>
+                </ion-accordion>
+
+              </ion-accordion-group>
+
+
+
+            </div>
+          </ion-accordion>
+
+        </ion-accordion-group>
+
+
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+  </ion-split-pane>
+
+
+</ion-app>  

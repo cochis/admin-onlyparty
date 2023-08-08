@@ -1,0 +1,17 @@
+<ion-header class="ion-no-border" translucent>
+
+  <ion-toolbar>
+    <ion-menu-button slot="start"></ion-menu-button>
+    <ion-buttons slot="secondary" *ngIf="!back">
+      <ion-back-button defaultHref="/" text="Regresar" color="primary">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize">{{titulo}}</ion-title>
+    <ion-buttons slot="primary">
+      <app-menu></app-menu>
+    </ion-buttons>
+  </ion-toolbar>
+
+
+
+</ion-header>

@@ -1,0 +1,82 @@
+<app-header titulo="Crear carrera"></app-header>
+
+<ion-content [fullscreen]="true">
+
+  <form #formulario="ngForm" (ngSubmit)="onSubmit(formulario)">
+    <ion-grid fixed>
+      <ion-row class="ion-text-center">
+        <ion-col size="12" size-md="6">
+          <ion-item>
+            <ion-label>Programa académico:</ion-label>
+            <ion-input type="string" placeholder="Programa académico" name="programa" [(ngModel)]="carrera.programa"
+              required></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="12" size-md="4" size-sm="6">
+          <ion-item>
+            <ion-label>Nivel:</ion-label>
+            <ion-input type="string" placeholder="Nivel" name="nivel" [(ngModel)]="carrera.nivel" required>
+            </ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6" size-md="2">
+          <ion-item>
+
+            <ion-checkbox name="estatus" [(ngModel)]="carrera.estatus">Estatus</ion-checkbox>
+          </ion-item>
+        </ion-col>
+        <ion-col size="12" size-md="6">
+          <ion-item>
+            <ion-label>Texto 1:</ion-label>
+            <ion-input label="Default label" placeholder="Enter text" placeholder="Enter text"></ion-input>
+
+          </ion-item>
+        </ion-col>
+        <ion-col size="12" size-md="4" size-sm="6">
+          <ion-item>
+            <ion-label>Número:</ion-label>
+            <ion-input label="Fixed label" labelPlacement="fixed" placeholder="Enter text"></ion-input>
+
+          </ion-item>
+        </ion-col>
+        <ion-col size="12" size-md="4" size-sm="6">
+          <ion-item>
+            <ion-label>Password:</ion-label>
+            <ion-input label="Stacked label" labelPlacement="stacked" type="password" value="password"></ion-input>
+
+          </ion-item>
+        </ion-col>
+        <ion-col size="12" size-md="4" size-sm="6">
+          <ion-item>
+            <ion-label>Email:</ion-label>
+            <ion-input label="Floating label" labelPlacement="floating" type="email" placeholder="email@domain.com">
+            </ion-input>
+
+          </ion-item>
+        </ion-col>
+        <ion-col size="12" size-md="4" size-sm="6">
+          <ion-item>
+            <ion-label>Teléfono:</ion-label>
+            <ion-input label="Telephone input" labelPlacement="floating" type="tel" placeholder="8888888888">
+              <div slot="label">Telefono <ion-text color="danger">(Requiredo)</ion-text>
+              </div>
+            </ion-input>
+
+          </ion-item>
+        </ion-col>
+
+
+      </ion-row>
+    </ion-grid>
+
+    <ion-button [disabled]="formulario.invalid" type="submit" expand="block" class="ion-padding">
+      Crear
+    </ion-button>
+
+  </form>
+
+
+
+
+
+</ion-content>
