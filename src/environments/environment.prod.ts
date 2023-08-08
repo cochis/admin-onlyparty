@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
-  NameSchool: 'Centro Universitario de Estudios Jurídicos',
-  NameSchoolAbr: 'CUEJ',
-  NameSystem: 'SAAC',
+  NameApp: 'Admin Only PArty',
+  NameAppAbr: 'AOP',
+  NameSystem: 'AOP',
   ver: '0.0.1',
 }

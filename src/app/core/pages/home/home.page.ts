@@ -10,10 +10,10 @@ import { environment } from 'src/environments/environment'
 })
 export class HomePage implements OnInit {
   loading = false
-  school: string = environment.NameSchool
-  schoolAbr = environment.NameSchoolAbr
+  app: string = environment.NameApp
+  appAbr = environment.NameAppAbr
   Sistema = environment.NameSystem
-  constructor(private readonly router: Router) {}
+  constructor(private readonly router: Router) { }
   ngOnInit() {
     this.loading = true
     setTimeout(() => {
