@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router'
 
 import { CorePage } from './core.page'
 
+
 const routes: Routes = [
   {
     path: '',
@@ -38,6 +39,27 @@ const routes: Routes = [
           import(
             './pages/administracion/carreras/editar-carrera/editar-carrera.module'
           ).then((m) => m.EditarCarreraPageModule),
+      },
+      {
+        path: 'catalogos/editar-catalogo',
+        loadChildren: () =>
+          import(
+            './pages/administracion/catalogos/editar-catalogo/editar-catalogo.module'
+          ).then((m) => m.EditarCatalogoPageModule),
+      },
+      {
+        path: 'catalogos/crear-catalogo',
+        loadChildren: () =>
+          import(
+            './pages/administracion/catalogos/crear-catalogo/crear-catalogo.module'
+          ).then((m) => m.CrearCatalogoPageModule),
+      },
+      {
+        path: 'catalogos/catalogos',
+        loadChildren: () =>
+          import(
+            './pages/administracion/catalogos/vista-catalogo/vista-catalogo.module'
+          ).then((m) => m.VistaCatalogoPageModule),
       },
     ],
   },

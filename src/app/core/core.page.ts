@@ -34,65 +34,26 @@ export class CorePage {
           ],
         },
         {
-          titulo: 'Horarios',
+          titulo: 'Catalogos',
           menus: [
             {
+              titulo: 'Ver Catalogos',
+              url: '/core/catalogos/catalogos',
+              icon: 'eye',
+            },
+            {
               titulo: 'crear',
-              url: '/crear/carrera',
+              url: '/core/catalogos/crear-catalogo',
               icon: 'add-circle',
             },
             {
               titulo: 'editar',
-              url: '/editar/carrera',
+              url: '/core/catalogos/editar-catalogo',
               icon: 'pencil',
-            },
-            {
-              titulo: 'desactivar',
-              url: '/desactivar/carrera',
-              icon: 'trash',
             },
           ],
         },
-        {
-          titulo: 'Ciclos escolares',
-          menus: [
-            {
-              titulo: 'crear',
-              url: '/crear/carrera',
-              icon: 'add-circle',
-            },
-            {
-              titulo: 'editar',
-              url: '/editar/carrera',
-              icon: 'pencil',
-            },
-            {
-              titulo: 'desactivar',
-              url: '/desactivar/carrera',
-              icon: 'trash',
-            },
-          ],
-        },
-        {
-          titulo: 'Grupos',
-          menus: [
-            {
-              titulo: 'crear',
-              url: '/crear/carrera',
-              icon: 'add-circle',
-            },
-            {
-              titulo: 'editar',
-              url: '/editar/carrera',
-              icon: 'pencil',
-            },
-            {
-              titulo: 'desactivar',
-              url: '/desactivar/carrera',
-              icon: 'trash',
-            },
-          ],
-        },
+
       ],
     },
     // {
@@ -267,7 +228,7 @@ export class CorePage {
     // },
   ]
 
-  constructor(private functionsService: FunctionsService) {}
+  constructor(private functionsService: FunctionsService) { }
 
   navigate(url: string) {
     this.functionsService.navigate(url)

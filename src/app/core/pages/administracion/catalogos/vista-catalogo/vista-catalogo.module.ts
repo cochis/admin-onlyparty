@@ -1,24 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { VistaCarreraPageRoutingModule } from './vista-carrera-routing.module';
+import { VistaCatalogoPageRoutingModule } from './vista-catalogo-routing.module';
 
-import { VistaCarreraPage } from './vista-carrera.page';
+import { VistaCatalogoPage } from './vista-catalogo.page';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { MaterialModule } from 'src/app/shared/material/material.module';
 
 @NgModule({
-  declarations: [VistaCarreraPage],
   imports: [
     CommonModule,
+    FormsModule,
     IonicModule,
-    VistaCarreraPageRoutingModule,
+    VistaCatalogoPageRoutingModule,
     ReactiveFormsModule,
     ComponentsModule,
     MaterialModule,
   ],
+  declarations: [VistaCatalogoPage]
 })
-export class VistaCarreraPageModule { }
+export class VistaCatalogoPageModule { }
