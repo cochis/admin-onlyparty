@@ -26,11 +26,7 @@ export class CorePage {
               url: '/core/carreras/crear-carrera',
               icon: 'add-circle',
             },
-            {
-              titulo: 'editar',
-              url: '/core/carreras/editar-carrera',
-              icon: 'pencil',
-            },
+
           ],
         },
         {
@@ -46,11 +42,7 @@ export class CorePage {
               url: '/core/catalogos/crear-catalogo',
               icon: 'add-circle',
             },
-            {
-              titulo: 'editar',
-              url: '/core/catalogos/editar-catalogo',
-              icon: 'pencil',
-            },
+
           ],
         },
 

@@ -8,6 +8,7 @@ export const environment = {
   NameAppAbr: 'AOP',
   NameSystem: 'AOP',
   ver: '0.0.1',
+  base_url: 'http://localhost:3004/api',
 
 }
 

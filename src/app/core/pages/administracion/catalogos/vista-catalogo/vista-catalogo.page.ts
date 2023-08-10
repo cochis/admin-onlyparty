@@ -1,99 +1,59 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import {
   MatTableDataSource,
   MatTableDataSourcePaginator,
 } from '@angular/material/table';
-export interface Data {
-  movies: string;
-}
+import { ActivatedRoute } from '@angular/router';
+import { delay } from 'rxjs';
+
+import { Catalogo } from 'src/app/core/classes/catalogo';
+import { CatalogosService } from 'src/app/core/services/catalogos.service';
+import { FunctionsService } from 'src/app/core/services/functions.service';
+
 @Component({
   selector: 'app-vista-catalogo',
   templateUrl: './vista-catalogo.page.html',
   styleUrls: ['./vista-catalogo.page.scss'],
 })
-export class VistaCatalogoPage implements OnInit, AfterViewInit {
+export class VistaCatalogoPage implements OnInit, OnChanges {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   displayedColumns: string[] = [
-    'id',
-    'programa',
-    'nivel',
-    'estatus',
+
+    'nombre',
+    'tipo',
+    'categoria',
+    'clave',
+    'valor',
     'opciones',
   ];
   dataSource!: MatTableDataSource<any, MatTableDataSourcePaginator>;
-  data: any[] = [
-    {
-      id: 1,
-      programa: 'Especialidad',
-      nivel: 'Nivel',
-      estatus: '',
-    },
-    {
-      id: 2,
-      programa: 'Especialidad',
-      nivel: 'Nivel',
-      estatus: '',
-    },
-    {
-      id: 3,
-      programa: 'Especialidad',
-      nivel: 'Nivel',
-      estatus: '',
-    },
-    {
-      id: 4,
-      programa: 'Especialidad',
-      nivel: 'Nivel',
-      estatus: '',
-    },
-    {
-      id: 5,
-      programa: 'Especialidad',
-      nivel: 'Nivel',
-      estatus: '',
-    },
-    {
-      id: 6,
-      programa: 'Especialidad',
-      nivel: 'Nivel',
-      estatus: '',
-    },
-    {
-      id: 7,
-      programa: 'Especialidad',
-      nivel: 'Nivel',
-      estatus: '',
-    },
-    {
-      id: 8,
-      programa: 'Especialidad',
-      nivel: 'Nivel',
-      estatus: '',
-    },
-    {
-      id: 9,
-      programa: 'Especialidad',
-      nivel: 'Nivel',
-      estatus: '',
-    },
-    {
-      id: 10,
-      programa: 'Especialidad',
-      nivel: 'Nivel',
-      estatus: '',
-    },
-  ];
 
-  constructor() { }
+  catalogos!: Catalogo[]
+  update = false
+  loading: any
+  constructor(
+    private route: ActivatedRoute,
+    private functionsService: FunctionsService,
+    private catalogosService: CatalogosService,
 
-  ngOnInit() { }
-
-  ngAfterViewInit(): void {
-    this.addData(this.data);
+  ) {
+    this.getCatalogos()
   }
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('chande');
+
+    this.getCatalogos()
+  }
+
+  ngOnInit() {
+    console.log('init');
+
+
+  }
+
 
   addData(data: any[]): void {
     this.dataSource = new MatTableDataSource(data);
@@ -106,19 +66,45 @@ export class VistaCatalogoPage implements OnInit, AfterViewInit {
     this.dataSource.sort = this.sort;
     // this.applyFilter(this.formControlInput.value);
   }
+  getCatalogos() {
+    this.catalogosService.getCatalogos().subscribe((resp: any) => {
+      this.catalogos = resp.catalogos
+      console.log('this.catalogos : ', this.catalogos);
+      this.addData(this.catalogos)
+    })
+  }
 
-  getNivel(n: number) {
-    if (n % 2 == 0) {
-      return 'Licenciatura';
-    } else {
-      return 'Maestria';
-    }
+  viewCatalogo(catalogo: Catalogo) {
+    console.log('catalogo: ', catalogo);
+
+    this.functionsService.navigate(`core/catalogos/editar-catalogo/false/${catalogo.uid}`)
+
   }
-  getActivo(n: number) {
-    if (n % 2 == 0) {
-      return 'lock-closed';
-    } else {
-      return 'lock-open';
-    }
+  editCatalogo(catalogo: Catalogo) {
+    this.functionsService.navigate(`core/catalogos/editar-catalogo/true/${catalogo.uid}`)
+    console.log('catalogo: ', catalogo);
   }
+  isActive(catalogo: Catalogo) {
+    console.log('catalogo: ', catalogo);
+    this.functionsService.showLoading().then((resp: any) => {
+      this.loading = resp
+      this.catalogosService.activeCatalogo(catalogo).pipe(delay(1000)).subscribe((resp) => {
+        console.log('resp: ', resp);
+
+        this.functionsService.closeLoading(this.loading)
+        this.getCatalogos()
+      },
+        (err) => {
+          console.log('err: ', err);
+          this.functionsService.closeLoading(this.loading)
+
+        })
+    },
+      (err: any) => {
+
+      })
+
+
+  }
+
 }

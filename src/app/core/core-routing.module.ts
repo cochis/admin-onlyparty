@@ -41,7 +41,7 @@ const routes: Routes = [
           ).then((m) => m.EditarCarreraPageModule),
       },
       {
-        path: 'catalogos/editar-catalogo',
+        path: 'catalogos/editar-catalogo/:edit/:id',
         loadChildren: () =>
           import(
             './pages/administracion/catalogos/editar-catalogo/editar-catalogo.module'
@@ -61,6 +61,7 @@ const routes: Routes = [
             './pages/administracion/catalogos/vista-catalogo/vista-catalogo.module'
           ).then((m) => m.VistaCatalogoPageModule),
       },
+
     ],
   },
 ]

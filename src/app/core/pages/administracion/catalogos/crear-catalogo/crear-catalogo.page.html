@@ -1,4 +1,162 @@
 <app-header titulo="Crear Catalogo"></app-header>
 
 <ion-content class="ion-padding">
-</ion-content>
+  <form (ngSubmit)="onSubmit()" [formGroup]="catalogoForm">
+    <ion-grid fixed>
+      <ion-row>
+
+        <!-- Nombre -->
+        <ion-col size="12">
+          <ion-item lines="full">
+            <ion-label position="floating">Nombre</ion-label>
+            <ion-input formControlName="nombre" type="text" aria-label="Nombre" required class="upper"> </ion-input>
+
+
+          </ion-item>
+          <div class="error ion-padding" *ngIf="(fm['nombre'].dirty ||fm['nombre'].touched) && fm['nombre'].errors">
+            <ion-text color="danger">Ingresa un nombre valido</ion-text>
+          </div>
+        </ion-col>
+        <!-- Nuevo tipo -->
+        <ion-col size="6" size-md="3">
+          <ion-label position="floating">Nuevo</ion-label>
+          <ion-radio-group [value]="nuevoTipo" (ionChange)="changeNuevoTipo($event)">
+            <ion-radio [value]="true" aria-label="Custom checkbox" class="ion-padding">Si</ion-radio>
+            <ion-radio [value]="false" aria-label="Custom checkbox that is checked" class="ion-padding">No</ion-radio>
+          </ion-radio-group>
+        </ion-col>
+        <!-- Tipo Select -->
+        <ion-col size="6" size-md="9" *ngIf="!nuevoTipo">
+          <ion-item lines="full">
+            <ion-select label="Tipo" label-placement="fixed" formControlName="tipo" placeholder="Tipo"
+              interface="popover">
+              <ion-select-option value=""></ion-select-option>
+              <ion-select-option [value]="tipo" *ngFor="let tipo of tipos">{{tipo}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div class="error ion-padding" *ngIf="(fm['tipo'].dirty ||fm['tipo'].touched) && fm['tipo'].errors">
+            <ion-text color="danger">Ingresa un tipo valido</ion-text>
+          </div>
+        </ion-col>
+        <!-- tipo text -->
+        <ion-col size="6" size-md="9" *ngIf="nuevoTipo">
+          <ion-item lines="full">
+            <ion-label position="floating">Tipo</ion-label>
+            <ion-input formControlName="tipo" type="text" aria-label="Tipo" required class="upper"></ion-input>
+
+
+          </ion-item>
+          <div class="error ion-padding" *ngIf="(fm['tipo'].dirty ||fm['tipo'].touched) && fm['tipo'].errors">
+            <ion-text color="danger">Ingresa un tipo valido</ion-text>
+          </div>
+        </ion-col>
+
+
+        <!-- Nuevo categoria -->
+        <ion-col size="6" size-md="3">
+          <ion-label position="floating">Nueva</ion-label>
+          <ion-radio-group [value]="nuevaCategoria" (ionChange)="changeNuevaCategoria($event)">
+            <ion-radio [value]="true" aria-label="Custom checkbox" class="ion-padding">Si</ion-radio>
+            <ion-radio [value]="false" aria-label="Custom checkbox that is checked" class="ion-padding">No</ion-radio>
+          </ion-radio-group>
+        </ion-col>
+        <!-- Tipo Select -->
+        <ion-col size="6" size-md="9" *ngIf="!nuevaCategoria">
+          <ion-item lines="full">
+            <ion-select label="Categoria" label-placement="fixed" formControlName="categoria" placeholder="Categoria"
+              interface="popover">
+              <ion-select-option value=""></ion-select-option>
+              <ion-select-option [value]="categoria"
+                *ngFor="let categoria of categorias">{{categoria}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <div class="error ion-padding"
+            *ngIf="(fm['categoria'].dirty ||fm['categoria'].touched) && fm['categoria'].errors">
+            <ion-text color="danger">Ingresa un tipo valido</ion-text>
+          </div>
+        </ion-col>
+        <!-- Categoria text -->
+        <ion-col size="6" size-md="9" *ngIf="nuevaCategoria">
+          <ion-item lines="full">
+            <ion-label position="floating">Categoria</ion-label>
+            <ion-input formControlName="categoria" type="text" aria-label="Categoria" required
+              class="upper"></ion-input>
+          </ion-item>
+          <div class="error ion-padding"
+            *ngIf="(fm['categoria'].dirty ||fm['categoria'].touched) && fm['categoria'].errors">
+            <ion-text color="danger">Ingresa una categoria valido</ion-text>
+          </div>
+        </ion-col>
+        <!-- Clave text -->
+        <ion-col size="12" size-md="6">
+          <ion-item lines="full">
+            <ion-label position="floating">Clave</ion-label>
+            <ion-input formControlName="clave" type="text" aria-label="Clave" required class="upper"></ion-input>
+          </ion-item>
+          <div class="error ion-padding" *ngIf="(fm['clave'].dirty ||fm['clave'].touched) && fm['clave'].errors">
+            <ion-text color="danger">Ingresa una clave valido</ion-text>
+          </div>
+        </ion-col>
+        <!-- Valor text -->
+        <ion-col size="12" size-md="6">
+          <ion-item lines="full">
+            <ion-label position="floating">Valor</ion-label>
+            <ion-input formControlName="value" type="text" aria-label="Valor" required class="upper"></ion-input>
+          </ion-item>
+          <div class="error ion-padding" *ngIf="(fm['value'].dirty ||fm['value'].touched) && fm['value'].errors">
+            <ion-text color="danger">Ingresa un valor valido</ion-text>
+          </div>
+        </ion-col>
+
+        <!-- Imagen text -->
+        <ion-col size="12" size-md="6">
+          <ion-item lines="full">
+            <ion-label position="floating">Imagen</ion-label>
+            <ion-input formControlName="img" type="text" aria-label="Imagen" required class="upper"></ion-input>
+          </ion-item>
+          <div class="error ion-padding" *ngIf="(fm['img'].dirty ||fm['img'].touched) && fm['img'].errors">
+            <ion-text color="danger">Ingresa una imagen valida</ion-text>
+          </div>
+        </ion-col>
+        <!-- Descripcion text -->
+        <ion-col size="12" size-md="12">
+          <ion-item lines="full">
+            <ion-label position="floating">Descripcion</ion-label>
+            <ion-textarea formControlName="descripcion" type="text" aria-label="Descripcion" required
+              class="upper"></ion-textarea>
+          </ion-item>
+          <div class="error ion-padding" *ngIf="(fm['img'].dirty ||fm['img'].touched) && fm['img'].errors">
+            <ion-text color="danger">Ingresa una imagen valida</ion-text>
+          </div>
+        </ion-col>
+        <!-- <ion-col size="12" size-md="6" formArrayName="imagenes">
+          <ion-label (click)="addImagen()" button fill="clear" shape="round">
+            Agregar
+          </ion-label>
+          <ng-container *ngFor="let imagen of  imagenes.controls; let  i=index">
+
+
+            <ion-item lines="full">
+              <ion-label position="floating">Imagen</ion-label>
+              <ion-input [formControlName]="i" type="text" aria-label="Imagen" required></ion-input>
+            </ion-item>
+            <div class="error ion-padding" *ngIf="imagenes.errors && formSubmited">
+              <ion-text color="danger">Ingresa una categoria valido</ion-text>
+            </div>
+          </ng-container>
+        </ion-col>-->
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button type="button" color="secondary" routerLink="/core/catalogos/catalogos/"
+            expand="block">Regresar</ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button type="submit" color="primary" [disabled]="!catalogoForm.valid" expand="block">Guardar</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+  </form>
+</ion-content>∫
