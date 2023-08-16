@@ -3,7 +3,8 @@ import { HttpClient } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
 import { Catalogo } from '../classes/catalogo';
-import { FunctionsService } from './functions.service';
+import { FunctionsService } from 'src/app/services/functions.service';
+
 
 
 
@@ -47,6 +48,14 @@ export class CatalogosService {
   }
   cargarCatalogoById(id: string) {
     const url = `${this.base_url}/catalogos/${id}`
+    return this.http.get(url, this.headers)
+  }
+  cargarCatalogoByTipo(tipo: string) {
+    const url = `${this.base_url}/catalogos/tipo/${tipo}`
+    return this.http.get(url, this.headers)
+  }
+  cargarCatalogoByCategoria(categoria: string) {
+    const url = `${this.base_url}/catalogos/categoria/${categoria}`
     return this.http.get(url, this.headers)
   }
   actualizarCatalogo(catalogo: Catalogo) {

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { PopoverController } from '@ionic/angular'
+import { FunctionsService } from 'src/app/services/functions.service'
+
 
 @Component({
   selector: 'app-popmenu',
@@ -10,9 +12,9 @@ import { PopoverController } from '@ionic/angular'
 export class PopmenuComponent implements OnInit {
   items = Array(7)
 
-  constructor(private popoverCtrl: PopoverController, private router: Router) {}
+  constructor(private popoverCtrl: PopoverController, private router: Router, private functionsService: FunctionsService) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   menuUser = [
     {
@@ -28,8 +30,11 @@ export class PopmenuComponent implements OnInit {
   ]
 
   onClick(valor: any) {
-    console.log('valor', valor)
-    this.router.navigateByUrl(valor)
+    if (valor == '/login') {
+      this.functionsService.removeAllLocal()
+    }
+    this.functionsService.navigate(valor)
+
     this.popoverCtrl.dismiss()
     // this.popoverCtrl.dismiss({
     //   item: valor,

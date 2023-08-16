@@ -1,6 +1,7 @@
 <app-header titulo="Crear Catalogo"></app-header>
 
 <ion-content class="ion-padding">
+
   <form (ngSubmit)="onSubmit()" [formGroup]="catalogoForm">
     <ion-grid fixed>
       <ion-row>
@@ -111,12 +112,21 @@
         <!-- Imagen text -->
         <ion-col size="12" size-md="6">
           <ion-item lines="full">
-            <ion-label position="floating">Imagen</ion-label>
-            <ion-input formControlName="img" type="text" aria-label="Imagen" required class="upper"></ion-input>
+
+            <input formControlName="img" type="file" (change)="cambiarImagen($event,'catalogos')" />
           </ion-item>
-          <div class="error ion-padding" *ngIf="(fm['img'].dirty ||fm['img'].touched) && fm['img'].errors">
-            <ion-text color="danger">Ingresa una imagen valida</ion-text>
-          </div>
+
+
+        </ion-col>
+        <ion-col size="12" size-md="6">
+          <ion-item lines="full">
+
+
+            <img *ngIf="imgTemp" [src]="imgTemp" class="imgUp" />
+
+          </ion-item>
+
+
         </ion-col>
         <!-- Descripcion text -->
         <ion-col size="12" size-md="12">
@@ -125,7 +135,7 @@
             <ion-textarea formControlName="descripcion" type="text" aria-label="Descripcion" required
               class="upper"></ion-textarea>
           </ion-item>
-          <div class="error ion-padding" *ngIf="(fm['img'].dirty ||fm['img'].touched) && fm['img'].errors">
+          <div class="error ion-padding" *ngIf="(fm['descripcion'].dirty ||fm['img'].touched) && fm['img'].errors">
             <ion-text color="danger">Ingresa una imagen valida</ion-text>
           </div>
         </ion-col>

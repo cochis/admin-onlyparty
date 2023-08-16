@@ -5,4 +5,5 @@ export const environment = {
   NameSystem: 'AOP',
   ver: '0.0.1',
   base_url: 'https://mylibam.com/api',
+  categoriaRDS: 'Red Social'
 }

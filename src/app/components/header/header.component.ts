@@ -29,11 +29,10 @@ export class HeaderComponent implements OnInit, OnChanges {
     }
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes)
-    console.log(this.titulo)
+
     if (
       this.titulo == 'Login' ||
       (this.titulo == 'Home' && this.titulo !== undefined)

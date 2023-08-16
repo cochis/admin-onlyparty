@@ -8,18 +8,19 @@ export class Usuario {
     img!: string;
     google!: boolean;
     password!: string;
-
+    lastEdited!: number;
     apellidoPaterno!: string;
     apellidoMaterno!: string;
     role!: string[];
     uid!: string;
 
 
-    constructor(nombre = "", email = "", activated = false, dateCreated = 0, clave = "", img = "", google = false, password = "", usuarioCreated = "", apellidoPaterno = "", apellidoMaterno = "", role = ["USER_ROLE"], uid = "") {
+    constructor(nombre = "", email = "", activated = false, lastEditeddateCreated = 0, clave = "", img = "", google = false, password = "", usuarioCreated = "", apellidoPaterno = "", apellidoMaterno = "", role = ["USER_ROLE"], uid = "", dateCreated = 0, lastEdited = 0) {
         this.nombre = nombre
         this.email = email
         this.activated = activated
         this.dateCreated = dateCreated
+        this.lastEdited = lastEdited
         this.clave = clave
         this.img = img
         this.google = google

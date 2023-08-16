@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { delay } from 'rxjs';
 import { Catalogo } from 'src/app/core/classes/catalogo';
 import { CatalogosService } from 'src/app/core/services/catalogos.service';
-import { FunctionsService } from 'src/app/core/services/functions.service';
+import { FileUpService } from 'src/app/core/services/file-up.service';
+import { FunctionsService } from 'src/app/services/functions.service';
+
 import { MsnServiceService } from 'src/app/services/msn-service.service';
 
 @Component({
@@ -11,7 +13,7 @@ import { MsnServiceService } from 'src/app/services/msn-service.service';
   templateUrl: './crear-catalogo.page.html',
   styleUrls: ['./crear-catalogo.page.scss'],
 })
-export class CrearCatalogoPage implements OnInit {
+export class CrearCatalogoPage implements OnInit, OnDestroy {
   formSubmited = false
   catalogo!: Catalogo
   catalogos!: Catalogo[]
@@ -20,15 +22,22 @@ export class CrearCatalogoPage implements OnInit {
   tipos = []
   categorias = []
   catalogoForm!: FormGroup;
+  imagenSubir!: File
+  imgTemp: any = null
+  imgCharge!: ''
   constructor(
     private catalogoService: CatalogosService,
     private fb: FormBuilder,
     private functionsService: FunctionsService,
-    private msnService: MsnServiceService
+    private msnService: MsnServiceService,
+    private fileUploadService: FileUpService,
 
   ) {
     this.createForm()
     this.getCatalogos()
+  }
+  ngOnDestroy(): void {
+    this.catalogoForm.reset()
   }
 
   ngOnInit() {
@@ -40,29 +49,23 @@ export class CrearCatalogoPage implements OnInit {
       tipo: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
       clave: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
       categoria: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
-      value: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
-      img: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
-      descripcion: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]],
+      value: ['', [Validators.required, Validators.minLength(3)]],
+      img: [''],
+      descripcion: ['', [Validators.required, Validators.minLength(5)]],
       // imagenes: this.fb.array([
       //   this.fb.control('', [Validators.required, Validators.minLength(5), Validators.maxLength(7)])
       // ])
 
     })
   }
-  setValue() {
-    this.catalogoForm.get('nombre')?.setValue('nuevo')
+  setValue(campo: string, value: any) {
+    this.catalogoForm.get(campo)?.setValue(value)
   }
 
   get fm() {
     return this.catalogoForm.controls
   }
-  // get imagenes() {
-  //   return this.catalogoForm.get('imagenes') as FormArray
-  // }
 
-  // addImagen() {
-  //   this.imagenes.push(this.fb.control('', [Validators.required, Validators.minLength(5)]))
-  // }
 
 
   onSubmit() {
@@ -76,7 +79,7 @@ export class CrearCatalogoPage implements OnInit {
         clave: this.catalogoForm.value.clave.toUpperCase().trim(),
         categoria: this.catalogoForm.value.categoria.toUpperCase().trim(),
         value: this.catalogoForm.value.value.toUpperCase().trim(),
-        img: this.catalogoForm.value.img.toUpperCase().trim(),
+        img: this.imgCharge,
 
         descripcion: this.catalogoForm.value.descripcion.toUpperCase().trim(),
         activated: true,
@@ -145,5 +148,44 @@ export class CrearCatalogoPage implements OnInit {
         console.log('err: ', err);
 
       })
+  }
+  cambiarImagen(file: any, tipo: string) {
+
+    console.log(file.target.files[0]);
+
+    this.imagenSubir = file.target.files[0]
+    if (!file) {
+      this.imgTemp = null
+      return
+    }
+    const reader = new FileReader()
+
+    const url64 = reader.readAsDataURL(this.imagenSubir)
+    reader.onloadend = () => {
+      this.imgTemp = reader.result
+    }
+    this.subirImagen(tipo)
+  }
+  subirImagen(tipo: string) {
+    this.fileUploadService
+      .subirFoto(this.imagenSubir, tipo)
+      .then(
+        (img) => {
+          console.log('img: ', img);
+          this.imgCharge = img
+          this.setValue('imagen', this.imgCharge)
+          this.msnService.alerta(
+            'success',
+            'Imagen cargada',
+          )
+
+        },
+        (err) => {
+          this.msnService.alerta(
+            'error',
+            'No se pudo actualizar la imagen',
+          )
+        },
+      )
   }
 }

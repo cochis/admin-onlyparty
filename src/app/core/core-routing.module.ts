@@ -61,9 +61,46 @@ const routes: Routes = [
             './pages/administracion/catalogos/vista-catalogo/vista-catalogo.module'
           ).then((m) => m.VistaCatalogoPageModule),
       },
-
+      {
+        path: 'usuarios/crear-usuario',
+        loadChildren: () => import('./pages/administracion/usuarios/crear-usuario/crear-usuario.module').then(m => m.CrearUsuarioPageModule)
+      },
+      {
+        path: 'usuarios/editar-usuario/:edit/:id',
+        loadChildren: () => import('./pages/administracion/usuarios/editar-usuario/editar-usuario.module').then(m => m.EditarUsuarioPageModule)
+      },
+      {
+        path: 'usuarios/usuarios',
+        loadChildren: () => import('./pages/administracion/usuarios/vista-usuario/vista-usuario.module').then(m => m.VistaUsuarioPageModule)
+      },
+      {
+        path: 'comercios/crear-comercio',
+        loadChildren: () => import('./pages/administracion/comercios/crear-comercio/crear-comercio.module').then(m => m.CrearComercioPageModule)
+      },
+      {
+        path: 'comercios/editar-comercio/:edit/:id',
+        loadChildren: () => import('./pages/administracion/comercios/editar-comercio/editar-comercio.module').then(m => m.EditarComercioPageModule)
+      },
+      {
+        path: 'comercios/comercios',
+        loadChildren: () => import('./pages/administracion/comercios/vista-comercio/vista-comercio.module').then(m => m.VistaComercioPageModule)
+      },
     ],
   },
+  {
+    path: 'crear-servicio',
+    loadChildren: () => import('./pages/administracion/servicios/crear-servicio/crear-servicio.module').then( m => m.CrearServicioPageModule)
+  },
+  {
+    path: 'editar-servicio',
+    loadChildren: () => import('./pages/administracion/servicios/editar-servicio/editar-servicio.module').then( m => m.EditarServicioPageModule)
+  },
+  {
+    path: 'vista-servicio',
+    loadChildren: () => import('./pages/administracion/servicios/vista-servicio/vista-servicio.module').then( m => m.VistaServicioPageModule)
+  },
+
+
 ]
 
 @NgModule({

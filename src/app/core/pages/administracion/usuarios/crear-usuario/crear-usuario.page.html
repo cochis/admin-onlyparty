@@ -1,0 +1,143 @@
+<app-header titulo="Crear Usuario"></app-header>
+
+<ion-content class="ion-padding">
+  <form (ngSubmit)="onSubmit()" [formGroup]="usuarioForm">
+    <ion-grid fixed>
+      <ion-row>
+
+        <!-- Nombre -->
+        <ion-col size="12" size-md="4">
+          <ion-item lines="full">
+            <ion-label position="floating">Nombre</ion-label>
+            <ion-input formControlName="nombre" type="text" aria-label="Nombre" required class="upper"> </ion-input>
+
+
+          </ion-item>
+          <div class="error ion-padding" *ngIf="(fm['nombre'].dirty ||fm['nombre'].touched) && fm['nombre'].errors">
+            <ion-text color="danger">Ingresa un nombre valido</ion-text>
+          </div>
+        </ion-col>
+        <!-- ApellidoPaterno -->
+        <ion-col size="12" size-md="4">
+          <ion-item lines="full">
+            <ion-label position="floating">Apellido paterno</ion-label>
+            <ion-input formControlName="apellidoPaterno" type="text" aria-label="Apellido paterno" required
+              class="upper"> </ion-input>
+
+
+          </ion-item>
+          <div class="error ion-padding"
+            *ngIf="(fm['apellidoPaterno'].dirty ||fm['apellidoPaterno'].touched) && fm['apellidoPaterno'].errors">
+            <ion-text color="danger">Ingresa un apellido paterno valido</ion-text>
+          </div>
+        </ion-col>
+        <!-- ApellidoMaterno -->
+        <ion-col size="12" size-md="4">
+          <ion-item lines="full">
+            <ion-label position="floating">Apellido materno</ion-label>
+            <ion-input formControlName="apellidoMaterno" type="text" aria-label="Apellido materno" required
+              class="upper"> </ion-input>
+
+
+          </ion-item>
+          <div class="error ion-padding"
+            *ngIf="(fm['apellidoMaterno'].dirty ||fm['apellidoMaterno'].touched) && fm['apellidoMaterno'].errors">
+            <ion-text color="danger">Ingresa un apellido materno valido</ion-text>
+          </div>
+        </ion-col>
+        <!-- email -->
+        <ion-col size="12" size-md="4">
+          <ion-item lines="full">
+            <ion-label position="floating">Correo electrónico</ion-label>
+            <ion-input formControlName="email" type="text" aria-label="Correo electrónico" required class="upper">
+            </ion-input>
+
+
+          </ion-item>
+          <div class="error ion-padding" *ngIf="(fm['email'].dirty ||fm['email'].touched) && fm['email'].errors">
+            <ion-text color="danger">Ingresa un correo electrónico valido</ion-text>
+          </div>
+        </ion-col>
+        <!-- email -->
+        <ion-col size="12" size-md="4">
+          <ion-item lines="full">
+            <ion-label position="floating">Contraseña</ion-label>
+            <ion-input formControlName="password" type="text" aria-label="Contraseña" required>
+            </ion-input>
+
+
+          </ion-item>
+          <div class="error ion-padding"
+            *ngIf="(fm['password'].dirty ||fm['password'].touched) && fm['password'].errors">
+            <ion-text color="danger">Ingresa una contraseña valida</ion-text>
+          </div>
+        </ion-col>
+        <!-- email -->
+        <ion-col size="12" size-md="4">
+          <ion-item lines="full">
+            <ion-label position="floating">Validación contraseña</ion-label>
+            <ion-input formControlName="password" type=" text" aria-label="Correo electrónico" required>
+            </ion-input>
+
+
+          </ion-item>
+          <div class="error ion-padding"
+            *ngIf="(fm['password'].dirty ||fm['password'].touched) && fm['password'].errors">
+            <ion-text color="danger">Ingresa un correo electrónico valido</ion-text>
+          </div>
+        </ion-col>
+
+
+
+        <!-- Imagen text -->
+
+        <ion-col size="12" size-md="6">
+          <ion-item>
+            <ion-label position="floating">Rol</ion-label>
+            <ion-select interface="popover" [multiple]="true" aria-label="Rol" formControlName="role">
+              <ion-select-option [value]="rol.clave" *ngFor="let rol of roles">{{rol.nombre}}</ion-select-option>
+
+
+            </ion-select>
+          </ion-item>
+
+
+        </ion-col>
+        <ion-col size="12" size-md="6">
+          <ion-item lines="full">
+
+            <input formControlName="img" type="file" (change)="cambiarImagen($event,'usuarios')" />
+          </ion-item>
+
+
+        </ion-col>
+        <ion-col size="12" size-md="6">
+          <ion-item lines="full">
+
+
+            <img *ngIf="imgTemp" [src]="imgTemp" class="imgUp" />
+
+          </ion-item>
+
+
+        </ion-col>
+
+
+
+
+
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button type="button" color="secondary" routerLink="/core/catalogos/catalogos/"
+            expand="block">Regresar</ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button type="submit" color="primary" [disabled]="!usuarioForm.valid" expand="block">Guardar</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+  </form>
+</ion-content>∫

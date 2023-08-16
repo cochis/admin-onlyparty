@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import {
@@ -10,7 +10,8 @@ import { delay } from 'rxjs';
 
 import { Catalogo } from 'src/app/core/classes/catalogo';
 import { CatalogosService } from 'src/app/core/services/catalogos.service';
-import { FunctionsService } from 'src/app/core/services/functions.service';
+import { FunctionsService } from 'src/app/services/functions.service';
+
 
 @Component({
   selector: 'app-vista-catalogo',
@@ -32,20 +33,20 @@ export class VistaCatalogoPage implements OnInit, OnChanges {
   dataSource!: MatTableDataSource<any, MatTableDataSourcePaginator>;
 
   catalogos!: Catalogo[]
+  catalogosTemp!: Catalogo[]
   update = false
   loading: any
   constructor(
     private route: ActivatedRoute,
     private functionsService: FunctionsService,
     private catalogosService: CatalogosService,
+    private changeDetectorRefs: ChangeDetectorRef
 
   ) {
     this.getCatalogos()
   }
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log('chande');
-
-    this.getCatalogos()
+  ngOnChanges(changes: any): void {
+    this.addData(changes)
   }
 
   ngOnInit() {
@@ -56,6 +57,7 @@ export class VistaCatalogoPage implements OnInit, OnChanges {
 
 
   addData(data: any[]): void {
+
     this.dataSource = new MatTableDataSource(data);
     this.paginator._intl.firstPageLabel = 'Primera página';
     this.paginator._intl.itemsPerPageLabel = 'Datos por página';
@@ -64,11 +66,12 @@ export class VistaCatalogoPage implements OnInit, OnChanges {
     this.paginator._intl.previousPageLabel = 'Página anterior';
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    // this.applyFilter(this.formControlInput.value);
+    this.changeDetectorRefs.detectChanges();
   }
   getCatalogos() {
     this.catalogosService.getCatalogos().subscribe((resp: any) => {
       this.catalogos = resp.catalogos
+      this.catalogosTemp = resp.catalogos
       console.log('this.catalogos : ', this.catalogos);
       this.addData(this.catalogos)
     })
@@ -106,5 +109,20 @@ export class VistaCatalogoPage implements OnInit, OnChanges {
 
 
   }
+  handleInput(event: any) {
+    this.catalogos = this.catalogosTemp
+    if (event.target.value.toLowerCase() === '') {
+      this.ngOnChanges(this.catalogosTemp)
+    }
+    const query = event.target.value.toLowerCase();
+    console.log('query: ', query);
+    this.catalogos = this.catalogos.filter(function (arr) {
+      console.log('arr.nombre.toLowerCase(): ', arr.nombre.toLowerCase());
+      console.log('event: ', query);
 
+      return arr.nombre.toLowerCase().includes(query);
+    })
+    this.ngOnChanges(this.catalogos)
+
+  }
 }

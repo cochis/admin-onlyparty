@@ -1,3 +1,11 @@
 <ion-buttons slot="end" class="ion-padding-end" (click)="presentPopover( $event )">
-  <ion-icon name="person-circle" size="large"></ion-icon>
+  <ion-icon name="person-circle" size="large" *ngIf="imgUrl == ''"></ion-icon>
+
+
+  <ion-item *ngIf="imgUrl !== ''">
+    <ion-avatar slot="start">
+      <img [alt]="usuario.nombre" src="{{url}}/upload/usuarios/{{imgUrl}}" />
+    </ion-avatar>
+    <ion-label>{{usuario.email}}</ion-label>
+  </ion-item>
 </ion-buttons>

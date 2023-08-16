@@ -1,0 +1,128 @@
+<app-header [titulo]="title"></app-header>
+
+<ion-content class="ion-padding">
+  <form (ngSubmit)="onSubmit()" [formGroup]="usuarioForm">
+    <ion-grid fixed>
+      <ion-row>
+
+        <!-- Nombre -->
+        <ion-col size="12">
+          <ion-item lines="full">
+            <ion-label position="floating">Nombre</ion-label>
+            <ion-input formControlName="nombre" type="text" aria-label="Nombre" required class="upper"
+              [readonly]="!edit">
+            </ion-input>
+
+
+          </ion-item>
+          <div class="error ion-padding" *ngIf="(fm['nombre'].dirty ||fm['nombre'].touched) && fm['nombre'].errors">
+            <ion-text color="danger">Ingresa un nombre valido</ion-text>
+          </div>
+        </ion-col>
+
+        <!-- Apellido Paterno -->
+        <ion-col size="12">
+          <ion-item lines="full">
+            <ion-label position="floating">Apellido paterno</ion-label>
+            <ion-input formControlName="apellidoPaterno" type="text" aria-label="Apellido Paterno" required
+              class="upper" [readonly]="!edit">
+            </ion-input>
+
+
+          </ion-item>
+          <div class="error ion-padding"
+            *ngIf="(fm['apellidoPaterno'].dirty ||fm['apellidoPaterno'].touched) && fm['apellidoPaterno'].errors">
+            <ion-text color="danger">Ingresa un apellido paterno valido</ion-text>
+          </div>
+        </ion-col>
+        <!-- Apellido Materno -->
+        <ion-col size="12">
+          <ion-item lines="full">
+            <ion-label position="floating">Apellido materno</ion-label>
+            <ion-input formControlName="apellidoMaterno" type="text" aria-label="Apellido Materno" required
+              class="upper" [readonly]="!edit">
+            </ion-input>
+
+
+          </ion-item>
+          <div class="error ion-padding"
+            *ngIf="(fm['apellidoMaterno'].dirty ||fm['apellidoMaterno'].touched) && fm['apellidoMaterno'].errors">
+            <ion-text color="danger">Ingresa un apellido materno valido</ion-text>
+          </div>
+        </ion-col>
+        <!-- Correo electrónico -->
+        <ion-col size="12">
+          <ion-item lines="full">
+            <ion-label position="floating">Correo electrónico</ion-label>
+            <ion-input formControlName="email" type="email" aria-label="Correo electrónico" required class="upper"
+              [readonly]="!edit">
+            </ion-input>
+
+
+          </ion-item>
+          <div class="error ion-padding" *ngIf="(fm['email'].dirty ||fm['email'].touched) && fm['email'].errors">
+            <ion-text color="danger">Ingresa un correo electrónico valido</ion-text>
+          </div>
+        </ion-col>
+
+        <ion-col size="12" size-md="6">
+          <ion-item>
+            <ion-label position="floating">Rol</ion-label>
+            <ion-select interface="popover" [multiple]="true" aria-label="Rol" formControlName="role">
+              <ion-select-option [value]="rol.value" *ngFor="let rol of roles">{{rol.nombre}}</ion-select-option>
+
+
+            </ion-select>
+          </ion-item>
+
+
+        </ion-col>
+        <!-- Imagen text -->
+        <ion-col size="12" size-md="6">
+          <ion-avatar *ngIf="imgUrl!==''">
+            <img [alt]="usuario.nombre" [src]="imgUrl" />
+          </ion-avatar>
+
+          <ion-item lines="full">
+
+            <input formControlName="img" type="file" (change)="cambiarImagen($event,'usuarios' )" [readonly]="!edit" />
+
+          </ion-item>
+
+        </ion-col>
+        <!-- <ion-col size="12" size-md="6" formArrayName="imagenes">
+          <ion-label (click)="addImagen()" button fill="clear" shape="round">
+            Agregar
+          </ion-label>
+          <ng-container *ngFor="let imagen of  imagenes.controls; let  i=index">
+
+
+            <ion-item lines="full">
+              <ion-label position="floating">Imagen</ion-label>
+              <ion-input [formControlName]="i" type="text" aria-label="Imagen" required></ion-input>
+            </ion-item>
+            <div class="error ion-padding" *ngIf="imagenes.errors && formSubmited">
+              <ion-text color="danger">Ingresa una categoria valido</ion-text>
+            </div>
+          </ng-container>
+        </ion-col>-->
+      </ion-row>
+      <ion-row>
+        <ion-col *ngIf="edit">
+          <ion-button type="button" color="secondary" expand="block"
+            routerLink="/core/usuarios/usuarios">Regresar</ion-button>
+        </ion-col>
+
+        <ion-col *ngIf="edit">
+          <ion-button type="submit" color="primary" [disabled]="!usuarioForm.valid" expand="block">Guardar</ion-button>
+        </ion-col>
+        <ion-col *ngIf="!edit">
+          <ion-button type="button" color="success" expand="block"
+            routerLink="/core/usuarios/usuarios/">Regresar</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+  </form>
+</ion-content>∫

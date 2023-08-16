@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { FunctionsService } from 'src/app/core/services/functions.service';
+
 import { AuthService } from '../../services/auth.service';
 import { Usuario } from 'src/app/classes/usuario';
 import { MsnServiceService } from 'src/app/services/msn-service.service';
+import { FunctionsService } from 'src/app/services/functions.service';
 
 
 @Component({
@@ -62,7 +63,7 @@ export class LoginPage {
     },
       (err) => {
         console.log('err: ', err.error.errors);
-        let error = `Algo salio mal por favor intente mas tarde`
+        let error = `Correo o contraseña errónea`
 
 
         this.msnService.alerta('error', error)

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { environment } from 'src/environments/environment'
-import { FunctionsService } from './services/functions.service'
+import { FunctionsService } from '../services/functions.service'
+
 
 @Component({
   selector: 'app-core',
@@ -14,16 +15,16 @@ export class CorePage {
       titulo: 'Administrador',
       modulos: [
         {
-          titulo: 'Carreras',
+          titulo: 'Usuarios',
           menus: [
             {
-              titulo: 'Ver Carreras',
-              url: '/core/carreras/carreras',
+              titulo: 'Ver Usuarios',
+              url: '/core/usuarios/usuarios',
               icon: 'eye',
             },
             {
               titulo: 'crear',
-              url: '/core/carreras/crear-carrera',
+              url: '/core/usuarios/crear-usuario',
               icon: 'add-circle',
             },
 
@@ -45,179 +46,26 @@ export class CorePage {
 
           ],
         },
+        {
+          titulo: 'Comercios',
+          menus: [
+            {
+              titulo: 'Ver Comercios',
+              url: '/core/comercios/comercios',
+              icon: 'eye',
+            },
+            {
+              titulo: 'crear',
+              url: '/core/comercios/crear-comercio',
+              icon: 'add-circle',
+            },
+
+          ],
+        },
 
       ],
     },
-    // {
-    //   titulo: 'Maestro',
-    //   modulos: [
-    //     {
-    //       titulo: 'Carreras',
-    //       menus: [
-    //         {
-    //           titulo: 'crear',
-    //           url: '/crear/carrera',
-    //           icon: 'add-circle',
-    //         },
-    //         {
-    //           titulo: 'editar',
-    //           url: '/editar/carrera',
-    //           icon: 'pencil',
-    //         },
-    //         {
-    //           titulo: 'desactivar',
-    //           url: '/desactivar/carrera',
-    //           icon: 'trash',
-    //         },
-    //       ],
-    //     },
-    //     {
-    //       titulo: 'Horarios',
-    //       menus: [
-    //         {
-    //           titulo: 'crear',
-    //           url: '/crear/carrera',
-    //           icon: 'add-circle',
-    //         },
-    //         {
-    //           titulo: 'editar',
-    //           url: '/editar/carrera',
-    //           icon: 'pencil',
-    //         },
-    //         {
-    //           titulo: 'desactivar',
-    //           url: '/desactivar/carrera',
-    //           icon: 'trash',
-    //         },
-    //       ],
-    //     },
-    //     {
-    //       titulo: 'Ciclos escolares',
-    //       menus: [
-    //         {
-    //           titulo: 'crear',
-    //           url: '/crear/carrera',
-    //           icon: 'add-circle',
-    //         },
-    //         {
-    //           titulo: 'editar',
-    //           url: '/editar/carrera',
-    //           icon: 'pencil',
-    //         },
-    //         {
-    //           titulo: 'desactivar',
-    //           url: '/desactivar/carrera',
-    //           icon: 'trash',
-    //         },
-    //       ],
-    //     },
-    //     {
-    //       titulo: 'Grupos',
-    //       menus: [
-    //         {
-    //           titulo: 'crear',
-    //           url: '/crear/carrera',
-    //           icon: 'add-circle',
-    //         },
-    //         {
-    //           titulo: 'editar',
-    //           url: '/editar/carrera',
-    //           icon: 'pencil',
-    //         },
-    //         {
-    //           titulo: 'desactivar',
-    //           url: '/desactivar/carrera',
-    //           icon: 'trash',
-    //         },
-    //       ],
-    //     },
-    //   ],
-    // },
-    // {
-    //   titulo: 'Alumno',
-    //   modulos: [
-    //     {
-    //       titulo: 'Horarios',
-    //       menus: [
-    //         {
-    //           titulo: 'crear',
-    //           url: '/crear/carrera',
-    //           icon: 'add-circle',
-    //         },
-    //         {
-    //           titulo: 'editar',
-    //           url: '/editar/carrera',
-    //           icon: 'pencil',
-    //         },
-    //         {
-    //           titulo: 'desactivar',
-    //           url: '/desactivar/carrera',
-    //           icon: 'trash',
-    //         },
-    //       ],
-    //     },
-    //     {
-    //       titulo: 'Boleta',
-    //       menus: [
-    //         {
-    //           titulo: 'crear',
-    //           url: '/crear/carrera',
-    //           icon: 'add-circle',
-    //         },
-    //         {
-    //           titulo: 'editar',
-    //           url: '/editar/carrera',
-    //           icon: 'pencil',
-    //         },
-    //         {
-    //           titulo: 'desactivar',
-    //           url: '/desactivar/carrera',
-    //           icon: 'trash',
-    //         },
-    //       ],
-    //     },
-    //     {
-    //       titulo: 'Historial academico',
-    //       menus: [
-    //         {
-    //           titulo: 'crear',
-    //           url: '/crear/carrera',
-    //           icon: 'add-circle',
-    //         },
-    //         {
-    //           titulo: 'editar',
-    //           url: '/editar/carrera',
-    //           icon: 'pencil',
-    //         },
-    //         {
-    //           titulo: 'desactivar',
-    //           url: '/desactivar/carrera',
-    //           icon: 'trash',
-    //         },
-    //       ],
-    //     },
-    //     {
-    //       titulo: 'Evaluacion  Profesores',
-    //       menus: [
-    //         {
-    //           titulo: 'crear',
-    //           url: '/crear/carrera',
-    //           icon: 'add-circle',
-    //         },
-    //         {
-    //           titulo: 'editar',
-    //           url: '/editar/carrera',
-    //           icon: 'pencil',
-    //         },
-    //         {
-    //           titulo: 'desactivar',
-    //           url: '/desactivar/carrera',
-    //           icon: 'trash',
-    //         },
-    //       ],
-    //     },
-    //   ],
-    // },
+
   ]
 
   constructor(private functionsService: FunctionsService) { }

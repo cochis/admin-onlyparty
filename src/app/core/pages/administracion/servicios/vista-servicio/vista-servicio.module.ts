@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { FolderPageRoutingModule } from './folder-routing.module';
+import { VistaServicioPageRoutingModule } from './vista-servicio-routing.module';
 
-import { FolderPage } from './folder.page';
+import { VistaServicioPage } from './vista-servicio.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    FolderPageRoutingModule
+    VistaServicioPageRoutingModule
   ],
-  declarations: [FolderPage]
+  declarations: [VistaServicioPage]
 })
-export class FolderPageModule {}
+export class VistaServicioPageModule {}

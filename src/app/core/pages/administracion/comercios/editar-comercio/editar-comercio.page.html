@@ -1,0 +1,176 @@
+<app-header [titulo]="title"></app-header>
+
+<ion-content class="ion-padding">
+  <form (ngSubmit)="onSubmit()" [formGroup]="comercioForm">
+    <ion-grid fixed>
+      <ion-row>
+
+        <!-- Usuario -->
+        <ion-col size="12">
+          <ion-item lines="full">
+            <ion-label position="floating">Usuario</ion-label>
+            <ion-input formControlName="usuario" type="text" aria-label="Usuario" required class="upper"
+              readonly="true"> </ion-input>
+
+
+          </ion-item>
+
+        </ion-col>
+        <!-- Nombre -->
+        <ion-col size="12">
+          <ion-item lines="full">
+            <ion-label position="floating">Nombre</ion-label>
+            <ion-input formControlName="nombre" type="text" aria-label="Nombre" required class="upper"
+              [readonly]="!edit"> </ion-input>
+
+
+          </ion-item>
+          <div class="error ion-padding" *ngIf="(fm['nombre'].dirty ||fm['nombre'].touched) && fm['nombre'].errors">
+            <ion-text color="danger">Ingresa un nombre valido</ion-text>
+          </div>
+        </ion-col>
+        <!-- Direccion -->
+        <ion-col size="12">
+          <ion-item lines="full">
+            <ion-label position="floating">Dirección</ion-label>
+            <ion-input formControlName="direccion" type="text" aria-label="Direccion" required class="upper"
+              [readonly]="!edit">
+            </ion-input>
+
+
+          </ion-item>
+          <div class="error ion-padding"
+            *ngIf="(fm['direccion'].dirty ||fm['direccion'].touched) && fm['direccion'].errors">
+            <ion-text color="danger">Ingresa una dirección valida</ion-text>
+          </div>
+        </ion-col>
+        <!-- email -->
+        <ion-col size="12">
+          <ion-item lines="full">
+            <ion-label position="floating">Correo electrónico</ion-label>
+            <ion-input formControlName="email" type="text" aria-label="Correo electrónico" required class="upper"
+              [readonly]="!edit">
+            </ion-input>
+
+
+          </ion-item>
+          <div class="error ion-padding" *ngIf="(fm['email'].dirty ||fm['email'].touched) && fm['email'].errors">
+            <ion-text color="danger">Ingresa una dirección valida</ion-text>
+          </div>
+        </ion-col>
+        <!-- Horario de atencion -->
+        <ion-col size="12">
+          <ion-item lines="full">
+            <ion-label position="floating">Horario de atención</ion-label>
+            <ion-input formControlName="horarioAtencion" type="text" aria-label="Horario atención" required
+              class="upper" [readonly]="!edit">
+            </ion-input>
+
+
+          </ion-item>
+          <div class="error ion-padding"
+            *ngIf="(fm['horarioAtencion'].dirty ||fm['horarioAtencion'].touched) && fm['horarioAtencion'].errors">
+            <ion-text color="danger">Ingresa una dirección valida</ion-text>
+          </div>
+        </ion-col>
+        <!-- Whatsapp -->
+        <ion-col size="12">
+          <ion-item lines="full">
+            <ion-label position="floating">Whatsapp</ion-label>
+            <ion-input formControlName="whatsapp" type="number" aria-label="Whatsapp" [readonly]="!edit"> </ion-input>
+          </ion-item>
+
+        </ion-col>
+        <!-- telefonos -->
+
+        <ion-col size="12" size-md="6" formArrayName="telefonos">
+          <ion-button (click)="addTelefono()" button color="primary" *ngIf="edit">
+            Agregar teléfono
+          </ion-button>
+          <ng-container *ngFor="let telefono of  telefonos.controls; let  i=index">
+
+
+            <ion-item lines="full">
+              <div class="row">
+                <ion-button (click)="removeTelefono(i)" button color="danger" class="ion-center" *ngIf="edit">
+                  <ion-icon slot="start" name="trash"></ion-icon>
+                </ion-button>
+              </div>
+              <ion-label position="floating">Telefono</ion-label>
+              <ion-input [formControlName]="i" type="number" aria-label="Imagen" required
+                [readonly]="!edit"></ion-input>
+            </ion-item>
+            <div class="error ion-padding" *ngIf="telefonos.errors && formSubmited">
+              <ion-text color="danger">Ingresa una telefono valido</ion-text>
+            </div>
+          </ng-container>
+        </ion-col>
+        <!-- Redes -->
+        <ion-col size="12" size-md="6" formArrayName="redes">
+          <ion-button (click)="addRed()" button color="primary" *ngIf="edit">
+            <ion-icon slot="start" name="add"></ion-icon> Red Social
+          </ion-button>
+          <ng-container *ngFor="let red of  redes.controls; let  i=index">
+            <ng-container lines="full" [formGroupName]="i">
+              <div class="row">
+                <ion-button (click)="removeRed(i)" button color="danger" class="ion-center" *ngIf="edit">
+                  <ion-icon slot="start" name="trash"></ion-icon>
+                </ion-button>
+              </div>
+              {{edit}}
+              <ion-item lines="full">
+                <ion-select label="Tipo" label-placement="fixed" formControlName="red" placeholder="Tipo"
+                  interface="popover" [disabled]="edit">
+                  <ion-select-option value=""></ion-select-option>
+                  <ion-select-option [value]="social.uid"
+                    *ngFor="let social of sociales">{{social.nombre}}</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-label position="floating">URL</ion-label>
+              <ion-input formControlName="link" type="text" aria-label="Link"></ion-input>
+            </ng-container>
+
+          </ng-container>
+
+        </ion-col>
+        <!-- imagenes -->
+        <ion-col size="12" size-md="6" formArrayName="imagenes" class="ion-no-padding ion-no-margin">
+
+          <ion-button (click)="addImagen()" button color="primary" *ngIf="edit">
+            Agregar imagen
+          </ion-button>
+          <ng-container *ngFor="let imagen of  imagenes.controls; let  i=index">
+
+            <ion-img *ngIf="imgOK" [src]="url+'/upload/comercios/'+imgCarga[i]"></ion-img>
+            <ion-item lines="full">
+
+              <input [formControlName]="i" type="text" *ngIf="edit" />
+              <label (click)="showInput(i)" [for]="i" button *ngIf="edit"> <ion-icon size="large"
+                  name="arrow-up-circle"></ion-icon></label>
+              <input *ngIf="file[i]" [formControlName]="i" type="file" (change)="cambiarImagen($event,'comercios',i)" />
+            </ion-item>
+
+          </ng-container>
+        </ion-col>
+
+
+      </ion-row>
+      <ion-row>
+        <ion-col *ngIf="edit">
+          <ion-button type="button" color="secondary" expand="block"
+            routerLink="/core/comercios/comercios">Regresar</ion-button>
+        </ion-col>
+
+        <ion-col *ngIf="edit">
+          <ion-button type="submit" color="primary" [disabled]="!comercioForm.valid" expand="block">Guardar</ion-button>
+        </ion-col>
+        <ion-col *ngIf="!edit">
+          <ion-button type="button" color="success" expand="block"
+            routerLink="/core/comercios/comercios/">Regresar</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+  </form>
+</ion-content>∫

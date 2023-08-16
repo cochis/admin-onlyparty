@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core'
 import { PopoverController } from '@ionic/angular'
 import { PopmenuComponent } from '../popmenu/popmenu.component'
+import { AuthService } from 'src/app/auth/services/auth.service'
+
+import { Usuario } from 'src/app/classes/usuario'
+import { environment } from 'src/environments/environment'
+import { FunctionsService } from 'src/app/services/functions.service'
+
 
 @Component({
   selector: 'app-menu',
@@ -8,9 +14,35 @@ import { PopmenuComponent } from '../popmenu/popmenu.component'
   styleUrls: ['./menu.component.scss'],
 })
 export class MenuComponent implements OnInit {
-  constructor(private popoverCtrl: PopoverController) {}
+  usuario!: Usuario
+  imgUrl: String = ''
+  url: String = environment.base_url
+  constructor(
+    private functionsService: FunctionsService,
+    private authService: AuthService,
+    private popoverCtrl: PopoverController,
 
-  ngOnInit() {}
+  ) {
+
+    if (this.functionsService.getLocal('uid')) {
+      let usr = this.functionsService.getLocal('uid')
+
+      this.authService.cargarUsuarioById(usr.data).subscribe((resp: any) => {
+
+        this.usuario = resp.usuario
+        if (this.usuario.img !== null && this.usuario.img !== undefined && this.usuario.img !== null && resp.usuario.img !== '') {
+          this.imgUrl = this.usuario.img
+        }
+
+      },
+        (err) => {
+          console.log('err: ', err);
+
+        })
+    }
+  }
+
+  ngOnInit() { }
 
   async presentPopover(ev: any) {
     console.log('ev:', ev)
